@@ -1,0 +1,19 @@
+<launch>
+    <!-- Turtlesim Node -->
+    <node pkg="turtlesim" type="turtlesim_node" name="sim" />
+    <node pkg="turtlesim" type="turtle_teleop_key" name="teleop" output="screen" />
+
+    <!-- Axes -->
+    <param name="scale_linear" value="2" type="double" />
+    <param name="scale_angular" value="2" type="double" />
+
+    <!-- tf -->
+    <node pkg="test_tf" type="broadcaster" args="turtle1" name="turtle1" />
+    <node pkg="test_tf" type="broadcaster" args="turtle2" name="turtle2" />
+    <node pkg="test_tf" type="listener" name="listener" />
+    <node pkg="test_tf" type="add_frame" name="carrot" />
+
+    <!-- RVIZ -->
+    <arg name="rvizconfig" default="$(find test_tf)/rviz/turtlesim.rviz" />
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rvizconfig)" required="true"/>
+</launch>
